@@ -19,7 +19,7 @@ var writeFile = path => data => new Promise((resolve, reject) => {
 var studentsFile = () => readFile('./students.txt');
 var marksFile = () => readFile('./marks.txt');
 var creditsFile = () => readFile('./credits.txt');
-var calculateCredit = (total, studentMark) => studentMark === 2.0 ? 0 :  (total * studentMark) / 6;
+var calculateCredit = (total, studentMark) => studentMark === 2.0 ? 0 : (total * studentMark) / 6;
 var stringify = data => data.toString();
 
 var splitLines = data => data.split('\n');
@@ -82,7 +82,6 @@ var generator = function*() {
         });
         return JSON.stringify(obj);
     }).toString();
-
 };
 
 function calculate(generator) {
