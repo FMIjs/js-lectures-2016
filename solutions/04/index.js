@@ -9,7 +9,7 @@ var readFile = path => new Promise((resolve, reject) => {
     });
 });
 
-var writeFile = (path) => (data) => new Promise((resolve, reject) => {
+var writeFile = path => data => new Promise((resolve, reject) => {
     fs.writeFile(path, data, err => {
         if(err) return reject(err);
         resolve(data);
@@ -19,14 +19,14 @@ var writeFile = (path) => (data) => new Promise((resolve, reject) => {
 var studentsFile = () => readFile('./students.txt');
 var marksFile = () => readFile('./marks.txt');
 var creditsFile = () => readFile('./credits.txt');
-var calculateCredit = (total, studentMark) => 
-    studentMark === 2.0 ? 0 :  (total * studentMark) / 6;
+var calculateCredit = (total, studentMark) => studentMark === 2.0 ? 0 :  (total * studentMark) / 6;
+var stringify = data => data.toString();
 
 var splitLines = data => data.split('\n');
 var splitEmptySpaces = data => data.split(/\s/g);
 
 var parseStudents = () => studentsFile()
-    .then(data => data.toString())
+    .then(stringify)
     .then(splitLines)
     .then(studentsArray => studentsArray.reduce((acc, student) => { 
         var studentArr = splitEmptySpaces(student); 
@@ -35,7 +35,7 @@ var parseStudents = () => studentsFile()
     }, {}));
 
 var parseMarks = () => marksFile()
-    .then(data => data.toString())
+    .then(stringify)
     .then(splitLines)
     .then(lineArray => lineArray.reduce((acc, line) => {
             var currentLineArray = splitEmptySpaces(line);
@@ -44,7 +44,7 @@ var parseMarks = () => marksFile()
     }, {}));
 
 var parseCredits = () => creditsFile()
-    .then(data => data.toString())
+    .then(stringify)
     .then(splitLines)
     .then(data => data.map(line => splitEmptySpaces(line)))
     .then(data => data[0].reduce((acc, curr, index) => { 
@@ -60,8 +60,7 @@ Promise.all([parseStudents(), parseMarks(), parseCredits()]).then(([students, ma
             name: students[key]
         };
         subjects.map((subject, index) => {
-            obj[subject] = calculateCredit(credits[subject], 
-                                           marks[key][index]).toFixed(2);
+            obj[subject] = calculateCredit(credits[subject], marks[key][index]).toFixed(2);
         });
         return JSON.stringify(obj);
     }).toString();
@@ -90,7 +89,7 @@ function calculate(generator) {
     var gen = generator();
     function next(result) {
         if(result instanceof Promise) {
-            result.then((data) => { 
+            result.then(data => { 
                 next(gen.next(data).value); 
             });
         }
