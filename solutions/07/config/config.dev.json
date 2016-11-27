@@ -1,0 +1,9 @@
+{
+    "db" : {
+        "url": "mongodb://localhost/6-expr",
+        "saltRounds": 10
+    },
+    "jwt": {
+        "secret": "21321214211312321"
+    }
+}
