@@ -1,0 +1,7 @@
+1. Install and create new project using [angular cli](https://github.com/angular/angular-cli)
+2. Generate a component List.
+3. Generate a service that will call this [api](https://jsonplaceholder.typicode.com/) and will get all posts (use [Angular Http service](https://angular.io/docs/ts/latest/guide/server-communication.html#!#fetch-data))
+4. Store all the posts in the service and create a method read that will take two arguments - offset, size (both numbers). Using RxJS operators ```take``` and ```skip``` this method should return the selected portion of posts. ([RxJs operators](https://github.com/ReactiveX/rxjs/tree/master/src/operator)).
+5. Inject the service into your Component and use the get method to load some posts when the component is created. Check the Angular 2 [lifecycle hooks](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html) or use the constructor to make the call to the service. Check Angular 2 [build-in directives](https://angular.io/docs/ts/latest/guide/attribute-directives.html) and present the data in the view.
+6. Create two buttons (get prev N posts, get next N posts, N is the pageSize) in the component template and hook them with the Component class. The idea is to create paging for our posts.
+7. Create an input field and using RxJS create a listener for the keyup event. The idea is to create a search filter that will filter out posts and present them to the user dynamically.
