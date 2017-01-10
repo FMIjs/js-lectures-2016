@@ -1,0 +1,15 @@
+<input #search type="text">
+<div id="posts">
+  <table>
+    <tr *ngFor="let post of (posts$ | async)">
+      <td>{{post.userId}}</td>
+      <td>{{post.id}}</td>
+      <td>{{post.title}}</td>
+      <td>{{post.body}}</td>
+    </tr>
+  </table>
+</div>
+<button (click)="prev()">prev</button><button (click)="next()">next</button>
+<button (click)="emit()">Emit</button>
+
+{{value}}
